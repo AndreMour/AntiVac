@@ -1,4 +1,5 @@
 import os
+import shutil
 
 # Lista dos nomes dos arquivos que você deseja verificar
 arquivos_alvo = ['arquivo1.txt', 'arquivo2.exe', 'arquivo3.docx', 'arquivo4.pdf']
@@ -10,8 +11,21 @@ def verificar_arquivos(diretorio):
             caminho_arquivo = os.path.join(root, arquivo_alvo)
             if os.path.exists(caminho_arquivo):
                 print(f'O arquivo {arquivo_alvo} foi encontrado em {caminho_arquivo}')
+                decisao = input('Deseja excluir este arquivo? (S/N): ').strip().lower()
+                if decisao == 's':
+                    excluir_arquivo(caminho_arquivo)
+                    print(f'O arquivo {arquivo_alvo} foi excluído.')
+                else:
+                    print(f'O arquivo {arquivo_alvo} não foi excluído.')
             else:
                 print(f'O arquivo {arquivo_alvo} não foi encontrado em {caminho_arquivo}')
+
+# Função para excluir um arquivo
+def excluir_arquivo(caminho):
+    try:
+        os.remove(caminho)
+    except Exception as e:
+        print(f"Erro ao excluir o arquivo {caminho}: {str(e)}")
 
 # Chame a função e forneça o diretório raiz a ser verificado
 verificar_arquivos('C:\\')  # Substitua 'C:\' pelo diretório que você deseja verificar
