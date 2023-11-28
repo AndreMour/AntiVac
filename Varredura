@@ -1,0 +1,17 @@
+import os
+
+# Lista dos nomes dos arquivos que você deseja verificar
+arquivos_alvo = ['arquivo1.txt', 'arquivo2.exe', 'arquivo3.docx', 'arquivo4.pdf']
+
+# Função para verificar a existência de arquivos em um diretório
+def verificar_arquivos(diretorio):
+    for root, dirs, files in os.walk(diretorio):
+        for arquivo_alvo in arquivos_alvo:
+            caminho_arquivo = os.path.join(root, arquivo_alvo)
+            if os.path.exists(caminho_arquivo):
+                print(f'O arquivo {arquivo_alvo} foi encontrado em {caminho_arquivo}')
+            else:
+                print(f'O arquivo {arquivo_alvo} não foi encontrado em {caminho_arquivo}')
+
+# Chame a função e forneça o diretório raiz a ser verificado
+verificar_arquivos('C:\\')  # Substitua 'C:\' pelo diretório que você deseja verificar
