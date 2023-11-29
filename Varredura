@@ -1,24 +1,20 @@
 import os
-import shutil
 
-# Lista dos nomes dos arquivos que você deseja verificar
-arquivos_alvo = ['arquivo1.txt', 'arquivo2.exe', 'arquivo3.docx', 'arquivo4.pdf']
-
-# Função para verificar a existência de arquivos em um diretório
-def verificar_arquivos(diretorio):
+# Função para verificar a existência de um arquivo em um diretório
+def verificar_arquivo(diretorio, nome_arquivo):
     for root, dirs, files in os.walk(diretorio):
-        for arquivo_alvo in arquivos_alvo:
-            caminho_arquivo = os.path.join(root, arquivo_alvo)
-            if os.path.exists(caminho_arquivo):
-                print(f'O arquivo {arquivo_alvo} foi encontrado em {caminho_arquivo}')
-                decisao = input('Deseja excluir este arquivo? (S/N): ').strip().lower()
-                if decisao == 's':
-                    excluir_arquivo(caminho_arquivo)
-                    print(f'O arquivo {arquivo_alvo} foi excluído.')
-                else:
-                    print(f'O arquivo {arquivo_alvo} não foi excluído.')
+        caminho_arquivo = os.path.join(root, nome_arquivo)
+        if os.path.exists(caminho_arquivo):
+            print(f'O arquivo {nome_arquivo} foi encontrado em {caminho_arquivo}')
+            decisao = input('Deseja excluir este arquivo? (S/N): ').strip().lower()
+            if decisao == 's':
+                excluir_arquivo(caminho_arquivo)
+                print(f'O arquivo {nome_arquivo} foi excluído.')
             else:
-                print(f'O arquivo {arquivo_alvo} não foi encontrado em {caminho_arquivo}')
+                print(f'O arquivo {nome_arquivo} não foi excluído.')
+            return  # Sai da função após verificar o arquivo
+
+    print(f'O arquivo {nome_arquivo} não foi encontrado em {diretorio}')
 
 # Função para excluir um arquivo
 def excluir_arquivo(caminho):
@@ -27,5 +23,9 @@ def excluir_arquivo(caminho):
     except Exception as e:
         print(f"Erro ao excluir o arquivo {caminho}: {str(e)}")
 
-# Chame a função e forneça o diretório raiz a ser verificado
-verificar_arquivos('C:\\')  # Substitua 'C:\' pelo diretório que você deseja verificar
+# Solicita o nome do arquivo ao usuário
+nome_arquivo = input('Digite o nome do arquivo a ser verificado: ')
+diretorio = input('Digite o diretório a ser verificado: ')
+
+# Chama a função para verificar o arquivo
+verificar_arquivo(diretorio, nome_arquivo)
